@@ -19,7 +19,7 @@ android {
 
         python {
             pip {
-                install "-r","requirements.txt"
+                install "-r","src\\main\\python\\requirements.txt"
             }
         }
     }
