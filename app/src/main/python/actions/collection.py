@@ -1,5 +1,5 @@
 import json
-from actions.Utils import Utils
+from actions.utils import Utils
 from actions.wiseLoginService import wiseLoginService
 
 
@@ -69,7 +69,10 @@ class Collection:
                     # 移除非必填选项
                     self.form.remove(formItem)
                     continue
-            userForm = self.userInfo['forms'][index]['form']
+            try:
+                userForm = self.userInfo['forms'][index]['form']
+            except:
+                raise Exception('请检查forms配置是否正确！')
             # 判断用户是否需要检查标题
             if self.userInfo['checkTitle'] == 1:
                 # 如果检查到标题不相等
@@ -79,13 +82,14 @@ class Collection:
                     )
             # 忽略用户指定题目
             if 'ignore' in userForm and userForm['ignore']:
-                    # 设置显示为false
-                    formItem['show'] = False
-                    # 清空所有的选项
-                    if 'fieldItems' in formItem:
-                        formItem['fieldItems'].clear()
-                    index += 1
-                    continue
+                formItem['value'] = None
+                # 设置显示为false
+                formItem['show'] = False
+                # 清空所有的选项
+                if 'fieldItems' in formItem:
+                    formItem['fieldItems'].clear()
+                index += 1
+                continue
             # 文本选项直接赋值
             if formItem['fieldType'] in ['1', '5', '6', '7']:
                 formItem['value'] = userForm['value']

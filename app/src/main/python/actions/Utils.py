@@ -40,8 +40,9 @@ class Utils:
         file = open(yaml_file, 'r', encoding="utf-8")
         file_data = file.read()
         file.close()
-        config = yaml.load(file_data, Loader=yaml.FullLoader)
-        return dict(config)
+        config = dict(yaml.load(file_data, Loader=yaml.FullLoader))
+        config['Version'] = '1.8.4'
+        return config
 
     # aes加密的实现
     @staticmethod
@@ -237,7 +238,7 @@ class Utils:
         bodyString = Utils.encryptAES(
             json.dumps(env.submitData), 'SASEoK4Pa5d4SssO')
         env.submitData['bodyString'] = bodyString
-        print(env.submitData)
+        # print(env.submitData)
         formData = {
             'version':
             'first_v3',
@@ -261,21 +262,21 @@ class Utils:
                 'wec-counselor-collector-apps/stu/collector/detailCollector',
                 'wec-counselor-collector-apps/stu/collector/getFormFields',
                 'wec-counselor-collector-apps/stu/collector/submitForm',
-                'wec-counselor-collector-apps/stu/oss/getUploadPolicy',
+                'wec-counselor-collector-apps/stu/obs/getUploadPolicy',
                 'wec-counselor-collector-apps/stu/collector/previewAttachment'
             ],
             [
                 'wec-counselor-sign-apps/stu/sign/getStuSignInfosInOneDay',
                 'wec-counselor-sign-apps/stu/sign/detailSignInstance',
                 'wec-counselor-sign-apps/stu/sign/submitSign',
-                'wec-counselor-sign-apps/stu/oss/getUploadPolicy',
+                'wec-counselor-sign-apps/stu/obs/getUploadPolicy',
                 'wec-counselor-sign-apps/stu/sign/previewAttachment'
             ],
             [
                 'wec-counselor-attendance-apps/student/attendance/getStuAttendacesInOneDay',
                 'wec-counselor-attendance-apps/student/attendance/detailSignInstance',
                 'wec-counselor-attendance-apps/student/attendance/submitSign',
-                'wec-counselor-sign-apps/stu/oss/getUploadPolicy',
+                'wec-counselor-sign-apps/stu/obs/getUploadPolicy',
                 'wec-counselor-sign-apps/stu/sign/previewAttachment'
             ],
             [
