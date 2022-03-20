@@ -1,0 +1,56 @@
+###############################################################################
+# 本项目的源代码在MPL2.0协议下发布，同时附加以下条目：                            #
+# 非商业性使用 — 不得将此项目及其衍生的项目的源代码和二进制产品用于任何商业和盈利用途#
+###############################################################################
+# 调试模式，用于寻找错误出现的坐标，默认为false
+# 特别提示：调试完成后请记得将debug改为false
+# 特别提示：调试完成后请记得将debug改为false
+# 特别提示：调试完成后请记得将debug改为false
+debug: False
+# 消息推送配置，method 0 为禁用 1 为webApi模式 2 为APPRISE模式，请参考https://github.com/caronc/apprise/wiki
+notifyOption:
+    method: 0
+    #############配置1-4选填一个即可
+    #############1 webApi配置,根据不同api可能需要自行修改推送模块
+    mailApiUrl: 'https://api.ruoli.cc/mail/sendMail'
+# 默认不填，如需使用先开通腾讯云OCR服务，再申请API密钥
+ocrOption:
+    SecretId: 'APIid'
+    SecretKey: 'APIkey'
+# 如IP被拦截，可设置全局HTTP代理
+httpProxy: ''
+#用户组配置
+##################################################
+# 温馨提示：请仔细注意每个模板是属于哪个任务类型的配置！##
+##################################################
+users:
+    # 第四个用户配置
+    # 以下配置为查寝
+    # 这里默认仅适配四川信息职业技术学院，其他学校自行修改
+    - user:
+        # 任务类型（收集：0、签到：1、查寝：2、教师工作日志：3）
+        type: 2
+        # school 学校全称
+        schoolName: 福建中医药大学
+        # username 学号或者工号
+        username: '%1$s'
+        # password 密码
+        password: '%2$s'
+        # 地址信息
+        address: '福建省福州市闽侯县修园西路1号'
+        notifyOption: 
+            # method和顶部参数一致，不填默认按照顶部参数执行
+            # method: 0
+            # rcvOption为接受消息的配置，method为1时直接填写邮箱即可，method为2时请参考
+            # https://github.com/caronc/apprise/wiki进行配置
+            # 示例'mailto://邮箱账号:邮箱密码@邮箱名.com'
+            rcvOption: 'mailto://账号:密码@163.com'
+        # 附上经纬度查询地址（请自行选择自己的学校地址，address，lon，lat都要填查询到的）：http://api.map.baidu.com/lbsapi/getpoint/index.html
+        # lon 经度
+        lon: 119.186356
+        # lat 纬度
+        lat: 26.079517
+        # abnormalReason 反馈信息（这个一般不用配置，但是不能删除，删除会报错）
+        abnormalReason: ''
+        # photo 签到照片，不需要可不填，或者直接删除
+        photo: sign.jpg
