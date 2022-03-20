@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         user=getSharedPreferences("user",MODE_PRIVATE);
         var username=(EditText)findViewById(R.id.username);
         var password=(EditText)findViewById(R.id.password);
+        username.setText(user.getString("username",""));
+        password.setText(user.getString("password",""));
         findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
