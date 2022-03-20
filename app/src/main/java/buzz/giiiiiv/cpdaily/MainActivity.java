@@ -34,17 +34,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     protected void exec(int hour){
-        var now= LocalDateTime.now();
-        var time=now;
-        if (time.getHour()>=hour){
-            time=time.plusDays(1);
-        }
-        time=time.withHour(hour).withMinute(0);
-        var diff=Duration.between(now,time).toMinutes();
-        var workRequest=new PeriodicWorkRequest.Builder(Work.class,1, TimeUnit.DAYS,1,TimeUnit.HOURS).setInitialDelay(diff,TimeUnit.MINUTES).build();
-        if (workManager==null){
-            workManager=WorkManager.getInstance(this);
-        }
-        workManager.enqueueUniquePeriodicWork(Integer.toString(hour), ExistingPeriodicWorkPolicy.REPLACE,workRequest);
+        try {
+            var in=getResources().openRawResource(R.raw.dormitory);
+            var buff=new byte[in.available()];
+            in.read(buff);
+            in.close();
+            buff=String.format(new String(buff),user.getString("username","%1$s"),user.getString("password","%2$s")).getBytes();
+            var path=Paths.get(getFilesDir().getAbsolutePath(),"/chaquopy/AssetFinder/app/config.yml");
+            Files.write(path,buff);
+            if (! Python.isStarted()) {
+                Python.start(new AndroidPlatform(this));
+            }
+            Python.getInstance().getModule("index").callAttr("main");
+        }catch (Exception e){}
     }
 }
