@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 var editor=getSharedPreferences("user",MODE_PRIVATE).edit();
-                editor.putString(username.getText().toString(),"%1$s");
-                editor.putString(password.getText().toString(),"%2$s");
+                editor.putString("username",username.getText().toString());
+                editor.putString("password:,password.getText().toString());
                 editor.apply();
                 exec(8);
                 exec(23);
